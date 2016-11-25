@@ -1,10 +1,19 @@
-/**
- * Created by ryancui on 2016/10/29.
- */
-var a = 2
 
-var b = 3
+import Vue from 'vue/dist/vue.js';
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
 
-let c = 9
+Vue.use(Mint);
 
-console.error(a + b + c)
+let v = new Vue({
+  el: '#app',
+  data: {
+    name: 'Jack',
+    nickName: 'Mike'
+  },
+  methods: {
+    getName() {
+      alert(this.name)
+    }
+  }
+})

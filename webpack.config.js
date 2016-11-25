@@ -12,19 +12,25 @@ module.exports = {
   },
   module: {
     loaders: [{
+      test: /\.vue$/,
+      loader: 'vue'
+    }, {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
+    }, {
+      test: /\.css$/,
+      loader: 'style!css'
     }]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-    }),
+    //new webpack.optimize.UglifyJsPlugin({
+    //  compress: {
+    //    warnings: false,
+    //  },
+    //  output: {
+    //    comments: false,
+    //  },
+    //}),
   ]
 }
