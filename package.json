@@ -5,19 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --content-base app/"
+    "dev": "webpack-dev-server --content-base app/ --inline --hot --port 8080 --host 172.22.2.76"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.7",
+    "babel-plugin-component": "^0.9.0",
     "babel-preset-es2015": "^6.18.0",
     "css-loader": "^0.25.0",
     "mint-ui": "^2.0.5",
     "style-loader": "^0.13.1",
     "vue": "^2.0.3",
     "vue-loader": "^9.9.1",
+    "vue-router": "^2.1.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   }

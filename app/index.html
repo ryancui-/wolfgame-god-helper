@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
   <title></title>
 </head>
 <body>
 
-  <div id="app" @click="getName()">
-    {{nickName}}
+  <div id="app">
+    <router-view></router-view>
+
+    <router-link to="/new"><mt-button type="primary">新对局</mt-button></router-link>
+    <router-link to="/dark/wolf"><mt-button type="primary">黑夜狼人睁眼</mt-button></router-link>
   </div>
 
   <script src="dest/bundle.js"></script>
