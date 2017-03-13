@@ -1,27 +1,34 @@
 /**
  * Created by ryancui on 2016/10/29.
  */
-var webpack = require('webpack')
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/main.js',
   output: {
-    path: 'app/dest',
+    path: '/dest',
     filename: 'bundle.js',
     publicPath: '/dest/'
   },
   module: {
     loaders: [{
       test: /\.vue$/,
-      loader: 'vue'
+      loader: 'vue-loader'
     }, {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
       test: /\.css$/,
-      loader: 'style!css'
+      use: ExtractTextPlugin.extract({
+        use: 'css-loader'
+      })
     }]
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true
   },
   plugins: [
     //new webpack.optimize.UglifyJsPlugin({
@@ -32,5 +39,6 @@ module.exports = {
     //    comments: false,
     //  },
     //}),
+    new ExtractTextPlugin('styles.css')
   ]
 }

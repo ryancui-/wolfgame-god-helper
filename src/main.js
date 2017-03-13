@@ -1,12 +1,12 @@
-
-import Vue from 'vue/dist/vue.js';
+import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import Mint from 'mint-ui';
-// import 'mint-ui/lib/style.css'
+import Mint from 'mint-ui';
+import App from './App.vue';
+import 'mint-ui/lib/style.css'
 
 import routes from './routers.js';
 
-// Vue.use(Mint);
+Vue.use(Mint);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -14,5 +14,6 @@ const router = new VueRouter({
 });
 
 const app = new Vue({
-  router
+  router,
+  render: h => h(App)
 }).$mount('#app');

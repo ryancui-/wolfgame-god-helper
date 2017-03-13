@@ -1,46 +1,34 @@
 <template>
 
   <div>
-    <mt-header fixed title="新的对局"></mt-header>
-
-    <mt-range
-      v-model="players"
-      :min="8"
-      :max="16"
-      :step="1"
-      :bar-height="5">
-    </mt-range>
+    <router-link to="/setting"><mt-button type="primary" class="btn">新的一局</mt-button></router-link>
   </div>
 
 </template>
 
 <script>
-//  import Vue from 'vue/dist/vue.js';
-//  import Mint from 'mint-ui';
-
-  import { Header, Range } from 'mint-ui';
-
-//  Vue.use(Mint);
-
   export default {
-    components: {
-      Header, Range
-    },
     data() {
-      return {
-        players: 12,
-        wolfPlayers: 4,
-      }
-    },
-    methods: {
-      checkValid() {
-        return true;
-      }
+      return {};
     }
   };
 </script>
 
-<style>
+<style scoped>
+  div {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
 
+  a {
+    width: 80%;
+  }
 
+  .btn {
+    width: 100%;
+  }
 </style>
