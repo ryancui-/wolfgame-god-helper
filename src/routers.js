@@ -7,13 +7,13 @@ import Wolf from './components/dark/wolf.vue';
 import Setting from './components/setting.vue';
 
 const routes = [{
-    path: '/',
-    component: NewGame
-  }, {
-    path: '/dark/wolf',
-    component: Wolf
-  }, {
-    path: '/setting',
+  path: '/',
+  component: NewGame
+}, {
+  path: '/dark/wolf',
+  component: Wolf
+}, {
+  path: '/setting',
   component: Setting
 }];
 

@@ -26,10 +26,6 @@ module.exports = {
       })
     }]
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
   plugins: [
     //new webpack.optimize.UglifyJsPlugin({
     //  compress: {
