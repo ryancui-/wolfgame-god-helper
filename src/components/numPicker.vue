@@ -18,7 +18,6 @@
     },
     created () {
       let one = {
-        'item-normal': true,
         'item-wolf': false,
         'item-good': false,
         'item-bad': false,
@@ -36,7 +35,6 @@
     methods: {
       changeStatus (index) {
         this.status[index]['item-select'] = !this.status[index]['item-select'];
-        this.status[index]['item-normal'] = !this.status[index]['item-normal'];
       }
     }
   }
@@ -54,10 +52,7 @@
     font-size: 8vw;
     text-align: center;
     color: black;
-  }
-
-  .item-normal {
-    background-color: #8abe6c;
+    border: 2px solid black;
   }
 
   .item-select {
