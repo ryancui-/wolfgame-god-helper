@@ -17,19 +17,9 @@
 
     <div>
       <mt-checklist
-        title="狼牌"
-        :max="wolfPlayer"
-        v-model="wolf"
-        :options="['白狼王', '狼美人', '纵火者']">
-      </mt-checklist>
-    </div>
-
-    <div>
-      <mt-checklist
-        title="神牌"
-        :max="functionalPlayer"
-        v-model="functional"
-        :options="['女巫', '预言家', '猎人', '白痴', '守卫', '禁言长老', '潜行者', '诽谤者']">
+        title="功能牌"
+        v-model="types"
+        :options="functioner">
       </mt-checklist>
     </div>
 
@@ -46,15 +36,12 @@
 </template>
 
 <script>
+  import FunctionType from '../store/function-type.js';
+
   export default {
     data () {
       return {
         totalPlayer: 12,
-        wolfPlayer: 4,
-        functionalPlayer: 4,
-        normalPlayer: 4,
-        wolf: [],
-        functional: [],
         playerNumSlot: [{
           flex: 1,
           values: [12, 13, 14, 15, 16],
@@ -80,32 +67,29 @@
         showPredefineAction: false,
         preDefine: [{
           name: '12人预女猎白',
-          method () {
-
-          }
+          method: this.set12Standard
         }, {
           name: '12人预女猎守+白狼'
         }, {
           name: '12人预女禁潜+狼美人'
-        }]
+        }],
+        types: []
       }
     },
     methods: {
-      onNumChange (picker, values) {
+      onNumChange(picker, values) {
         this.totalPlayer = values[0];
-        this.wolfPlayer = values[1];
-        this.functionalPlayer = values[2];
-        this.normalPlayer = values[3];
       },
-      showPredefine () {
+      showPredefine() {
         this.showPredefineAction = true;
       },
-      /** 设定 15 人标准局 */
-      set15Standard () {
-        this.$refs.numPicker.setSlotValue(0, 15);
-        this.$refs.numPicker.setSlotValue(1, 5);
-        this.$refs.numPicker.setSlotValue(2, 5);
-        this.$refs.numPicker.setSlotValue(3, 5);
+      set12Standard() {
+        this.$refs.numPicker.setSlotValue(0, 12);
+        this.$refs.numPicker.setSlotValue(1, 4);
+        this.$refs.numPicker.setSlotValue(2, 4);
+        this.$refs.numPicker.setSlotValue(3, 4);
+
+        this.types = [FunctionType.SEER, FunctionType.WITCH, FunctionType.GUN, FunctionType.IDIOT];
       },
       /** 开始游戏 */
       start () {
@@ -114,17 +98,28 @@
         // 初始化游戏数据
         let payload = {
           totalPlayer: this.totalPlayer,
-          wolfPlayer: this.wolfPlayer,
-          functionalPlayer: this.functionalPlayer,
-          normalPlayer: this.normalPlayer,
-          wolf: this.wolf,
-          functional: this.functional
+          types: this.types
         };
 
         this.$store.commit('initNew', payload);
 
         // 跳转到夜晚
         this.$router.push('/dark/wolf');
+      }
+    },
+    computed: {
+      functioner() {
+        let result = [];
+
+        for (let i in FunctionType) {
+          // 忽略普通狼人和普通村民
+          if (i === 'WOLF' || i === 'VILLIAGER') {
+            continue;
+          }
+          result.push(FunctionType[i]);
+        }
+
+        return result;
       }
     }
   }
@@ -155,4 +150,5 @@
   .btnPanel > * {
     flex-grow: 1;
   }
+
 </style>
