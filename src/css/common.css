@@ -14,5 +14,5 @@
 .btnPanel > * {
   flex-grow: 1;
   flex-basis: 10vw;
-  margin: 10px 10px;
+  margin: 0 10px;
 }

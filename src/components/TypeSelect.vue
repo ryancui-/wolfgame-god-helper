@@ -8,7 +8,7 @@
     </num-picker>
 
     <div>
-      <label for="">狼人阵营为：</label>
+      <label for="">选择为：</label>
       <span>{{selectLabel}}</span>
     </div>
 
@@ -34,8 +34,17 @@
     methods: {
       submit() {
         let payload = {};
-        payload[this.$route.params.type] = this.multiple ? this.select : +this.select;
-        this.$store.commit(this.multiple ? 'setWolf' : 'setFunction', payload);
+
+        // 选择狼人
+        if (this.multiple) {
+          payload.wolf = this.select;
+          this.$store.commit('setWolf', payload);
+        } else {
+          // 选择功能者
+          payload.type = this.$route.params.type;
+          payload.number = +this.select;
+          this.$store.commit('setFunction', payload);
+        }
 
         this.$router.push('/' + this.$route.params.type);
       }

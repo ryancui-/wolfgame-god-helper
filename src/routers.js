@@ -4,7 +4,8 @@
 
 import Newgame from './components/Newgame.vue';
 import TypeSelect from './components/TypeSelect.vue';
-import Wolf from './components/wolf.vue';
+import Wolf from './components/Wolf.vue';
+import Witch from './components/Witch.vue'
 
 
 const routes = [{
@@ -16,6 +17,9 @@ const routes = [{
 }, {
   path: '/wolf',
   component: Wolf
+}, {
+  path: '/witch',
+  component: Witch
 }];
 
 export default routes;

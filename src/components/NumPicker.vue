@@ -17,7 +17,10 @@
         type: Array,
         required: true
       },
-      multiple: Boolean
+      multiple: Boolean,
+      showCamp: Boolean,
+      showDeath: Boolean,
+      disableSelection: Boolean
     },
     data () {
       return {
@@ -31,20 +34,43 @@
       };
 
       for (let i=0; i<16; i++) {
-        this.status.push(Object.assign({
-          'item-wolf': this.$store.state.players[i] && this.$store.state.players[i].camp < 0
-        }, one));
+        this.status.push(Object.assign({}, one));
+      }
+
+      // 是否显示阵营
+      if (this.showCamp) {
+        for (let i=0; i<16; i++) {
+          this.status[i]['item-wolf'] = (this.$store.state.players[i] && this.$store.state.players[i].camp < 0);
+        }
+      }
+
+      // 显示当天中刀号码
+      if (this.showDeath) {
+        let toBeDeath = this.$store.getters.toBeDeath;
+        this.status[toBeDeath - 1]['item-tobedeath'] = true;
       }
     },
     methods: {
       changeStatus (index) {
-        if (this.multiple) {
-          this.status[index]['item-select'] = !this.status[index]['item-select'];
-        } else {
+        // 禁止选择
+        if (this.disableSelection) {
+          return;
+        }
+
+        // 当前选择index已死亡
+        if (this.$store.state.players[index] && this.$store.state.players[index].death) {
+          return;
+        }
+
+        this.status[index]['item-select'] = !this.status[index]['item-select'];
+
+        if (!this.multiple) {
           for (let i=0; i<16; i++) {
+            if (i === index) {
+              continue;
+            }
             this.status[i]['item-select'] = false;
           }
-          this.status[index]['item-select'] = true;
         }
 
         this.values.splice(0);
@@ -100,6 +126,10 @@
 
   .item-wolf {
     background-color: #eeb012;
+  }
+
+  .item-tobedeath {
+    background-color: greenyellow;
   }
 
   .item > span {

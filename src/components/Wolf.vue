@@ -9,12 +9,11 @@
     </div>
 
     <div>
-      <num-picker :maxNum="$store.state.totalPlayer" :values="values"></num-picker>
+      <num-picker :maxNum="$store.state.totalPlayer" :values="values" :showCamp="true"></num-picker>
     </div>
 
     <div class="btnPanel">
-      <mt-button type="primary" @click.native="emptyKill">空刀</mt-button>
-      <mt-button type="primary" @click.native="killSomeone" :disabled="values.length===0">{{killBtnText}}</mt-button>
+      <mt-button type="primary" @click.native="killSomeone">{{killBtnText}}</mt-button>
     </div>
   </div>
 </template>
@@ -29,15 +28,9 @@
       }
     },
     methods: {
-      emptyKill() {
-        let payload = {};
-        payload.kill = null;
-
-        this.$store.commit('wolfTurn', payload);
-      },
       killSomeone() {
         let payload = {};
-        payload.kill = +this.values;
+        payload.kill = (+this.values == 0) ? null : +this.values;
 
         this.$store.commit('wolfTurn', payload);
       }
@@ -50,7 +43,7 @@
         return `第 ${this.$store.state.current} 天晚上 - 狼人请睁眼`;
       },
       killBtnText() {
-        return this.values.length === 0 ? ' ' : `刀 ${+this.values} 号`;
+        return this.values.length === 0 ? '空刀' : `刀 ${+this.values} 号`;
       }
     }
   }

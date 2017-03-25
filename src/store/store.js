@@ -24,7 +24,13 @@ export default {
     dayInfo: {}
   },
   getters: {
-
+    /**
+     * 当天中刀号码
+     */
+    toBeDeath(state) {
+      let status = state.progress[state.current - 1];
+      return status.kill;
+    }
   },
   mutations: {
     /**
@@ -65,7 +71,7 @@ export default {
     /**
      * 设置功能者
      * @param {*} p 
-     * p.function (String) FunctionType 要设置的功能者
+     * p.type (String) FunctionType 要设置的功能者
      * p.number (Number) 玩家号码
      */
     setFunction(state, p) {
@@ -124,7 +130,7 @@ export default {
         state.players[status.kill - 1].death = true;
       } else {
         // 已使用解药，设置标签
-        state.functioner[FunctionType.WITCH].hasGood = false;
+        state.functioner[FunctionType.WITCH].useGood = true;
       }
 
       if (status.poison) {
@@ -134,7 +140,7 @@ export default {
         }
         
         // 已使用毒药，设置标签
-        state.functioner[FunctionType.WITCH].hasBad = false;
+        state.functioner[FunctionType.WITCH].useBad = true;
       }
 
       // 进入下一天
