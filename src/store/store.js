@@ -16,6 +16,7 @@ export default {
     progress: null,       // 数组，每天夜晚的操作集合
 
     /** 玩家信息 */
+    totalPlayer: 12,
     players: null,        // 数组，每个对象是一名玩家
     functioner: {},       // 特殊身份牌
 
@@ -44,6 +45,7 @@ export default {
       state.progress = [{}];
 
       state.players = [];
+      state.totalPlayer = p.totalPlayer;
       for (let i=0; i<p.totalPlayer; i++) {
         state.players.push(Object.assign({
           id: i+1

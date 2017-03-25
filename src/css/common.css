@@ -13,4 +13,6 @@
 
 .btnPanel > * {
   flex-grow: 1;
+  flex-basis: 10vw;
+  margin: 10px 10px;
 }

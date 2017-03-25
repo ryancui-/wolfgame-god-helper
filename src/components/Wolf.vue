@@ -5,7 +5,16 @@
     </div>
 
     <div>
-      <num-picker></num-picker>
+      <span>请杀人：</span>
+    </div>
+
+    <div>
+      <num-picker :maxNum="$store.state.totalPlayer" :values="values"></num-picker>
+    </div>
+
+    <div class="btnPanel">
+      <mt-button type="primary" @click.native="emptyKill">空刀</mt-button>
+      <mt-button type="primary" @click.native="killSomeone" :disabled="values.length===0">{{killBtnText}}</mt-button>
     </div>
   </div>
 </template>
@@ -16,7 +25,21 @@
   export default {
     data () {
       return {
+        values: []
+      }
+    },
+    methods: {
+      emptyKill() {
+        let payload = {};
+        payload.kill = null;
 
+        this.$store.commit('wolfTurn', payload);
+      },
+      killSomeone() {
+        let payload = {};
+        payload.kill = +this.values;
+
+        this.$store.commit('wolfTurn', payload);
       }
     },
     components: {
@@ -24,7 +47,10 @@
     },
     computed: {
       title () {
-        return `第 ${this.$store.state.current} 天晚上`;
+        return `第 ${this.$store.state.current} 天晚上 - 狼人请睁眼`;
+      },
+      killBtnText() {
+        return this.values.length === 0 ? ' ' : `刀 ${+this.values} 号`;
       }
     }
   }

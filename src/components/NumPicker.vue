@@ -11,11 +11,14 @@
 
 <script>
   export default {
-    props: [
-      'maxNum',
-      'values',
-      'multiple'
-    ],
+    props: {
+      maxNum: Number,
+      values: {
+        type: Array,
+        required: true
+      },
+      multiple: Boolean
+    },
     data () {
       return {
         // 状态类
@@ -24,18 +27,13 @@
     },
     created () {
       let one = {
-        'item-wolf': false,
-        'item-good': false,
-        'item-bad': false,
-        'item-death': false,
-        'item-dying': false,
-        'item-guard': false,
-        'item-poison': false,
         'item-select': false
       };
 
       for (let i=0; i<16; i++) {
-        this.status.push(Object.assign({}, one));
+        this.status.push(Object.assign({
+          'item-wolf': this.$store.state.players[i] && this.$store.state.players[i].camp < 0
+        }, one));
       }
     },
     methods: {
@@ -84,14 +82,24 @@
   .item {
     width: 15vw;
     height: 15vw;
-    font-size: 8vw;
+    font-size: 9vw;
     text-align: center;
     color: black;
     border: 2px solid black;
+    border-radius: 4vw;
+    font-family: "Microsoft YaHei";
   }
 
   .item-select {
-    background-color: #ffa57d;
+    /*background-color: #ffa57d;*/
+    font-size: 9vw;
+    font-weight: bold;
+    color: red;
+    border-color: red;
+  }
+
+  .item-wolf {
+    background-color: #eeb012;
   }
 
   .item > span {

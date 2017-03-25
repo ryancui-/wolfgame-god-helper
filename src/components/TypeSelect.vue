@@ -4,13 +4,14 @@
       <mt-header :title="title"></mt-header>
     </div>
 
-    <num-picker :max-num="totalPlayer" :values="select" :multiple="multiple">
+    <num-picker :max-num="$store.state.totalPlayer" :values="select" :multiple="multiple">
     </num-picker>
 
     <div>
       <label for="">狼人阵营为：</label>
       <span>{{selectLabel}}</span>
     </div>
+
     <div class="btnPanel">
       <mt-button type="primary" @click.native="submit">确定</mt-button>
     </div>
@@ -45,10 +46,6 @@
       },
       multiple() {
         return (this.$route.params.type.toUpperCase() === 'WOLF');
-      },
-      totalPlayer() {
-        return this.$store.state.players.length;
-//        return 12;
       },
       selectLabel() {
         return this.select.join(',');
