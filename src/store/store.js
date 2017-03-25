@@ -1,6 +1,7 @@
 /**
  * Created by ryancui on 2017/3/14.
  */
+import createPersist, { createStorage } from 'vuex-localstorage'
 import FunctionType from './function-type.js';
 
 /**
@@ -138,5 +139,11 @@ export default {
       state.progress.push({})
       state.current++;
     }
-  }
+  },
+  plugins: [createPersist({
+    namespace: 'namespace-for-state',
+    initialState: {},
+    // ONE_WEEK
+    expires: 7 * 24 * 60 * 60 * 1e3
+  })]
 };

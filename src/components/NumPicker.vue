@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <div class="row" v-for="r in 4" v-if="r*3 <= maxNum">
+    <div class="row" v-for="r in 4" v-if="(r-1)*4 < maxNum">
       <span class="item" :class="status[i-1]" @click="changeStatus(i-1)" v-for="i in [4*r-3, 4*r-2, 4*r-1, 4*r]"
             :style="visible[i-1]">
         <span>{{i}}</span>

@@ -48,7 +48,7 @@
       },
       totalPlayer() {
         return this.$store.state.players.length;
-//        return 11;
+//        return 12;
       },
       selectLabel() {
         return this.select.join(',');

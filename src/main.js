@@ -15,7 +15,8 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const router = new VueRouter({
-  routes
+  routes,
+
 });
 
 const store = new Vuex.Store(storeDefine);
