@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import NumPicker from './numPicker.vue';
+  import NumPicker from './NumPicker.vue';
 
   export default {
     data () {
@@ -31,10 +31,5 @@
 </script>
 
 <style>
-  .main {
-    padding-top: 40px;
-  }
-  .main > div {
-    padding: 10px 10px;
-  }
+
 </style>

@@ -1,0 +1,16 @@
+/** 主内容面板 */
+.main {
+  padding-top: 40px;
+}
+.main > div {
+  padding: 10px 10px;
+}
+
+/** 平铺的单个按钮 */
+.btnPanel {
+  display: flex;
+}
+
+.btnPanel > * {
+  flex-grow: 1;
+}

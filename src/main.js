@@ -4,7 +4,9 @@ import Vuex from 'vuex';
 import Mint from 'mint-ui';
 import App from './App.vue';
 import storeDefine from './store/store';
-import 'mint-ui/lib/style.css'
+
+import 'mint-ui/lib/style.css';
+import './css/common.css';
 
 import routes from './routers.js';
 

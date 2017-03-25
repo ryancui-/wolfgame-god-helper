@@ -103,8 +103,8 @@
 
         this.$store.commit('initNew', payload);
 
-        // 跳转到夜晚
-        this.$router.push('/dark/wolf');
+        // 跳转到狼人的选择
+        this.$router.push('/select/wolf');
       }
     },
     computed: {
@@ -113,10 +113,15 @@
 
         for (let i in FunctionType) {
           // 忽略普通狼人和普通村民
+          // TODO 完善其他板子的逻辑再放出选项
           if (i === 'WOLF' || i === 'VILLIAGER') {
             continue;
           }
-          result.push(FunctionType[i]);
+
+          // FIXME 暂时只放出预女猎白版子
+          if (['SEER', 'WITCH', 'GUN', 'IDIOT'].indexOf(i) !== -1) {
+            result.push(FunctionType[i]);
+          }
         }
 
         return result;
@@ -142,13 +147,4 @@
     width: 100px;
     text-align: center;
   }
-
-  .btnPanel {
-    display: flex;
-  }
-
-  .btnPanel > * {
-    flex-grow: 1;
-  }
-
 </style>
