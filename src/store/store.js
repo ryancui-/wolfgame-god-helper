@@ -2,6 +2,7 @@
  * Created by ryancui on 2017/3/14.
  */
 import createPersist, { createStorage } from 'vuex-localstorage'
+import Vue from 'vue';
 import FunctionType from './function-type.js';
 
 /**
@@ -13,7 +14,7 @@ export default {
 
     /** 游戏进程 */
     current: 1,           // 游戏进行到第几天
-    progress: null,       // 数组，每天夜晚的操作集合
+    progress: [],         // 数组，每天夜晚的操作集合
 
     /** 玩家信息 */
     totalPlayer: 12,
@@ -29,7 +30,7 @@ export default {
      */
     toBeDeath(state) {
       let status = state.progress[state.current - 1];
-      return status.kill;
+      return status && status.kill;
     }
   },
   mutations: {
@@ -57,6 +58,9 @@ export default {
           id: i+1
         }, character));
       }
+
+      state.functioner = {};
+      state.dayInfo = {};
     },
     /** 
      * 设置狼人阵营
@@ -85,7 +89,7 @@ export default {
      */
     wolfTurn(state, p) {
       let status = state.progress[state.current - 1];
-      status.kill = p.kill;
+      Vue.set(status, 'kill', p.kill);
     },
     /** 
      * 女巫轮次 
@@ -94,8 +98,8 @@ export default {
      */
     witchTurn(state, p) {
       let status = state.progress[state.current - 1];
-      status.isSave = p.isSave;
-      status.poison = p.poison;
+      Vue.set(status, 'isSave', p.isSave);
+      Vue.set(status, 'poison', p.poison);
     },
     /** 
      * 预言家轮次 
@@ -103,7 +107,7 @@ export default {
      */
     seerTurn(state, p) {
       let status = state.progress[state.current - 1];
-      status.see = p.see;
+      Vue.set(status, 'see', p.see);
     },
     /**
      * 白天的死亡事件
@@ -115,9 +119,17 @@ export default {
       }
     },
     /**
+     * 执行白天逻辑
+     * @param state
+     */
+    finishDay(state) {
+      state.progress.push({});
+      state.current++;
+    },
+    /**
      * 执行晚上逻辑，判断游戏是否结束，生成白天公布的信息
      */
-    compute(state) {
+    finishNight(state) {
       let status = state.progress[state.current - 1];
       
       // 重置白天信息
@@ -130,23 +142,22 @@ export default {
         state.players[status.kill - 1].death = true;
       } else {
         // 已使用解药，设置标签
-        state.functioner[FunctionType.WITCH].useGood = true;
+        Vue.set(state.functioner[FunctionType.WITCH], 'useGood', true);
       }
 
       if (status.poison) {
-        if (status.poison != status.kill) {
+        if (status.poison !== status.kill) {
           state.dayInfo.death.push(status.poison);
           state.players[status.poison - 1].death = true;
         }
         
         // 已使用毒药，设置标签
-        state.functioner[FunctionType.WITCH].useBad = true;
+        Vue.set(state.functioner[FunctionType.WITCH], 'useBad', true);
       }
-
-      // 进入下一天
-      state.progress.push({})
-      state.current++;
-    }
+    },
+    // test (state) {
+    //   state.players[0].camp = -1;
+    // }
   },
   plugins: [createPersist({
     namespace: 'namespace-for-state',

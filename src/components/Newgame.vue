@@ -92,7 +92,7 @@
         this.types = [FunctionType.SEER, FunctionType.WITCH, FunctionType.GUN, FunctionType.IDIOT];
       },
       /** 开始游戏 */
-      start () {
+      start() {
         // TODO 合法性检验
 
         // 初始化游戏数据
@@ -104,7 +104,7 @@
         this.$store.commit('initNew', payload);
 
         // 跳转到狼人的选择
-        this.$router.push('/select/wolf');
+        this.$router.push('/night');
       }
     },
     computed: {

@@ -9,7 +9,7 @@
     </div>
 
     <div>
-      <num-picker :maxNum="$store.state.totalPlayer" :values="values" :showCamp="true"></num-picker>
+      <num-picker :maxNum="$store.state.totalPlayer" :values="values" :show-camp="true" :show-to-be-death="true"></num-picker>
     </div>
 
     <div class="btnPanel">
@@ -30,9 +30,12 @@
     methods: {
       killSomeone() {
         let payload = {};
-        payload.kill = (+this.values == 0) ? null : +this.values;
+        payload.kill = (+this.values === 0) ? null : +this.values;
 
         this.$store.commit('wolfTurn', payload);
+
+        this.$router.push('/night');
+//        this.$store.commit('test');
       }
     },
     components: {

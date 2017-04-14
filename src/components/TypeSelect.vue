@@ -32,7 +32,7 @@
       };
     },
     methods: {
-      submit() {
+      submit () {
         let payload = {};
 
         // 选择狼人
@@ -41,7 +41,7 @@
           this.$store.commit('setWolf', payload);
         } else {
           // 选择功能者
-          payload.type = this.$route.params.type;
+          payload.type = FunctionType[this.$route.params.type.toUpperCase()];
           payload.number = +this.select;
           this.$store.commit('setFunction', payload);
         }
@@ -50,13 +50,13 @@
       }
     },
     computed: {
-      title() {
+      title () {
         return `请选择${FunctionType[this.$route.params.type.toUpperCase()]}`;
       },
-      multiple() {
+      multiple () {
         return (this.$route.params.type.toUpperCase() === 'WOLF');
       },
-      selectLabel() {
+      selectLabel () {
         return this.select.join(',');
       }
     }

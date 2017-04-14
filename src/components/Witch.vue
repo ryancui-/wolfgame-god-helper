@@ -9,7 +9,7 @@
     </div>
 
     <div>
-      <num-picker :max-num="$store.state.totalPlayer" :values="values" :show-death="!useGood" :disable-selection="useBad"></num-picker>
+      <num-picker :max-num="$store.state.totalPlayer" :values="values" :show-to-be-death="!useGood" :disable-selection="useBad"></num-picker>
     </div>
 
     <div class="btnPanel">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import FunctionType from '../store/function-type.js';
   import NumPicker from './NumPicker.vue';
 
   export default {
@@ -35,6 +36,8 @@
         payload.poison = (+this.values === 0) ? null : +this.values;
 
         this.$store.commit('witchTurn', payload);
+
+        this.$router.push('/night');
       }
     },
     components: {
@@ -45,10 +48,10 @@
         return `第 ${this.$store.state.current} 天晚上 - 女巫请睁眼`
       },
       useGood() {
-        return !!this.$store.state.functioner['witch'].useGood;
+        return !!this.$store.state.functioner[FunctionType.WITCH].useGood;
       },
       useBad() {
-        return !!this.$store.state.functioner['witch'].useBad;
+        return !!this.$store.state.functioner[FunctionType.WITCH].useBad;
       },
       poisonText() {
         return this.values.length === 0 ? '不毒' : `毒 ${+this.values} 号`;
