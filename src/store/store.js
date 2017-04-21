@@ -114,6 +114,8 @@ export default {
      * p.death (Array) 死亡号码
      */
     dieDuringDay(state, p) {
+      let status = state.progress[state.current - 1];
+      Vue.set(status, 'out', p);
       for (let i of p) {
         state.players[i - 1].death = true;
       }
@@ -139,7 +141,7 @@ export default {
 
       if (!status.isSave) {
         status.kill && state.dayInfo.death.push(status.kill);
-        state.players[status.kill - 1].death = true;
+        status.kill && (state.players[status.kill - 1].death = true);
       } else {
         // 已使用解药，设置标签
         Vue.set(state.functioner[FunctionType.WITCH], 'useGood', true);

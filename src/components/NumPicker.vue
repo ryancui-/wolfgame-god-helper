@@ -1,10 +1,11 @@
 <template>
   <div class="top">
     <div class="row" v-for="r in 4" v-if="(r-1)*4 < maxNum">
-      <span class="item" :class="status[i-1]" @click="onClickCell(i-1)" v-for="i in [4*r-3, 4*r-2, 4*r-1, 4*r]"
-            :style="visible[i-1]">
-        <span>{{i}}</span>
-      </span>
+    <span class="item" :class="status[i-1]" v-for="i in [4*r-3, 4*r-2, 4*r-1, 4*r]"
+          @touchstart="onTouchStart(i-1, $event)" @touchmove="onTouchMove($event)" @touchend="onTouchEnd($event)"
+          :style="visible[i-1]">
+      <span>{{i}}</span>
+    </span>
     </div>
   </div>
 </template>
@@ -24,7 +25,8 @@
     },
     data() {
       return {
-        selection: [] // 状态类
+        selection: [],  // 状态类
+        prevTouch: 0
       }
     },
     created() {
@@ -41,7 +43,7 @@
        * 点击 Cell 回调
        * @param index 被点击的号码
        */
-      onClickCell (index) {
+      onTouchStart (index, evt) {
         // 禁止选择
         if (this.disableSelection) {
           return;
@@ -52,6 +54,17 @@
           return;
         }
 
+        this.prevTouch = index;
+//        console.log(evt);
+      },
+      onTouchMove (evt) {
+        let target = document.elementFromPoint(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
+//        console.log(target);
+      },
+      onTouchEnd (evt) {
+//        console.log(evt);
+
+        let index = this.prevTouch;
         this.selection[index]['item-select'] = !this.selection[index]['item-select'];
 
         if (!this.multiple) {
@@ -69,6 +82,7 @@
             this.values.push(i + 1);
           }
         }
+
       }
     },
     computed: {
@@ -155,5 +169,8 @@
     vertical-align: middle;
   }
 
-
+  .canvas {
+    position: absolute;
+    top: 0px;
+  }
 </style>

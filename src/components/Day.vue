@@ -8,10 +8,13 @@
       {{givenInfo}}
     </div>
 
-    <div>
-      <num-picker :max-num="$store.state.totalPlayer" :values="values"></num-picker>
-    </div>
+    <!--<div>-->
+      <!--<num-picker :max-num="$store.state.totalPlayer" :values="values"></num-picker>-->
+    <!--</div>-->
 
+    <div class="btnPanel">
+      <mt-button type="primary" @click.native="vote">放逐投票</mt-button>
+    </div>
     <div class="btnPanel">
       <mt-button type="primary" @click.native="finishDay">天黑了</mt-button>
     </div>
@@ -27,10 +30,12 @@
     },
     data() {
       return {
-        values: []
       };
     },
     methods: {
+      vote() {
+        this.$router.push('/vote');
+      },
       finishDay () {
         this.$store.commit('finishDay');
 

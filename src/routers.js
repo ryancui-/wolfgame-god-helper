@@ -9,6 +9,7 @@ import Witch from './components/Witch.vue';
 import Seer from './components/Seer.vue';
 import Night from './components/Night.vue';
 import Day from './components/Day.vue';
+import Vote from './components/Vote.vue';
 
 const routes = [{
   path: '/',
@@ -37,6 +38,9 @@ const routes = [{
 }, {
   path: '/idiot',
   redirect: '/night'
+}, {
+  path: '/vote',
+  component: Vote
 }];
 
 export default routes;
