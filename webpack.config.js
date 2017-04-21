@@ -1,13 +1,13 @@
 /**
  * Created by ryancui on 2016/10/29.
  */
+var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: '/dest',
+    path: path.resolve(__dirname, './dest'),
     filename: 'bundle.js',
     publicPath: '/dest/'
   },
@@ -21,18 +21,14 @@ module.exports = {
       loader: 'babel-loader'
     }, {
       test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        use: 'css-loader'
-      })
+      loader: 'style-loader!css-loader'
     }]
   },
-  plugins: [
-    new ExtractTextPlugin('styles.css')
-  ]
+  devtool: '#eval-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -43,7 +39,8 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
-      }
+      },
+      comments: false
     })
   ])
 }
