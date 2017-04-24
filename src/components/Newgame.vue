@@ -41,7 +41,8 @@
   export default {
     data () {
       return {
-        totalPlayer: 12,
+        totalCount: 12,
+        wolfCount: 4,
         playerNumSlot: [{
           flex: 1,
           values: [12, 13, 14, 15, 16],
@@ -68,17 +69,14 @@
         preDefine: [{
           name: '12人预女猎白',
           method: this.set12Standard
-        }, {
-          name: '12人预女猎守+白狼'
-        }, {
-          name: '12人预女禁潜+狼美人'
         }],
         types: []
       }
     },
     methods: {
       onNumChange(picker, values) {
-        this.totalPlayer = values[0];
+        this.totalCount = values[0];
+        this.wolfCount = values[1];
       },
       showPredefine() {
         this.showPredefineAction = true;
@@ -93,17 +91,16 @@
       },
       /** 开始游戏 */
       start() {
-        // TODO 合法性检验
-
         // 初始化游戏数据
         let payload = {
-          totalPlayer: this.totalPlayer,
+          totalCount: this.totalCount,
+          wolfCount: this.wolfCount,
           types: this.types
         };
 
         this.$store.commit('initNew', payload);
 
-        // 跳转到狼人的选择
+        // 晚上开始
         this.$router.push('/night');
       }
     },

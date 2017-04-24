@@ -4,12 +4,12 @@
       <mt-header :title="title"></mt-header>
     </div>
 
-    <div>
-      <span>女巫轮次：</span>
+    <div class="tips">
+      <span>（向女巫指示当晚中刀号码，无提示则无需指示，需要使用毒药直接点击号码）</span>
     </div>
 
     <div>
-      <num-picker :max-num="$store.state.totalPlayer" :values="values" :show-to-be-death="!useGood" :disable-selection="useBad"></num-picker>
+      <num-picker :values="values" :show-to-be-death="!useGood" :disable-selection="useBad"></num-picker>
     </div>
 
     <div class="btnPanel">
@@ -45,7 +45,7 @@
     },
     computed: {
       title() {
-        return `第 ${this.$store.state.current} 天晚上 - 女巫请睁眼`
+        return `第 ${this.$store.state.current} 天晚上`
       },
       useGood() {
         return !!this.$store.state.functioner[FunctionType.WITCH].useGood;
@@ -61,5 +61,10 @@
 </script>
 
 <style>
-
+  .tips {
+    font-family: "Microsoft YaHei UI";
+    font-weight: bold;
+    font-size: 13px;
+    color: red;
+  }
 </style>

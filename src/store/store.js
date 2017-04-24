@@ -17,7 +17,8 @@ export default {
     progress: [],         // 数组，每天夜晚的操作集合
 
     /** 玩家信息 */
-    totalPlayer: 12,
+    totalCount: null,
+    wolfCount: null,
     players: null,        // 数组，每个对象是一名玩家
     functioner: {},       // 特殊身份牌
 
@@ -28,9 +29,12 @@ export default {
     /**
      * 当天中刀号码
      */
-    toBeDeath(state) {
+    toBeDeath (state) {
       let status = state.progress[state.current - 1];
       return status && status.kill;
+    },
+    currentProgress (state) {
+      return state.progress[state.current - 1];
     }
   },
   mutations: {
@@ -41,9 +45,9 @@ export default {
      */
     initNew(state, p) {
       let character = {
-        camp: 1,                              // 阵营，0为中立，1为好人，-1为狼人
-        type: FunctionType.VILLIAGER,         // 身份信息
-        death: false,                         // 是否死亡
+        camp: 1,          // 阵营，0为中立，1为平民，-1为狼人，2为神
+        type: "",         // 身份信息
+        death: false,     // 是否死亡
       };
 
       state.types = p.types;
@@ -52,8 +56,9 @@ export default {
       state.progress = [{}];
 
       state.players = [];
-      state.totalPlayer = p.totalPlayer;
-      for (let i=0; i<p.totalPlayer; i++) {
+      state.totalCount = p.totalCount;
+      state.wolfCount = p.wolfCount;
+      for (let i=0; i<p.totalCount; i++) {
         state.players.push(Object.assign({
           id: i+1
         }, character));
@@ -80,6 +85,7 @@ export default {
      */
     setFunction(state, p) {
       state.players[p.number - 1].type = p.type;
+      // state.players[p.number - 1].camp = p.camp;
 
       state.functioner[p.type] = state.players[p.number - 1];
     },
@@ -133,7 +139,14 @@ export default {
      */
     finishNight(state) {
       let status = state.progress[state.current - 1];
-      
+
+      // 将 player.type 为空串的补全为平民
+      for (let i = 0; i < state.players.length; i++) {
+        if (state.players[i].type === '') {
+          state.players[i].type = '平民';
+        }
+      }
+
       // 重置白天信息
       state.dayInfo = {
         death: []

@@ -4,12 +4,12 @@
       <mt-header :title="title"></mt-header>
     </div>
 
-    <div>
-      <span>预言家轮次：</span>
+    <div class="tips">
+      <span>（选择验人号码记录）</span>
     </div>
 
     <div>
-      <num-picker :max-num="$store.state.totalPlayer" :values="values" :show-camp="true"></num-picker>
+      <num-picker :values="values" :show-camp="true"></num-picker>
     </div>
 
     <div class="btnPanel">
@@ -42,11 +42,17 @@
     },
     computed: {
       title() {
-        return `第 ${this.$store.state.current} 天晚上 - 预言家请睁眼`
+        return `第 ${this.$store.state.current} 天晚上`
       }
     }
   }
 </script>
 
 <style>
+  .tips {
+    font-family: "Microsoft YaHei UI";
+    font-weight: bold;
+    font-size: 13px;
+    color: red;
+  }
 </style>

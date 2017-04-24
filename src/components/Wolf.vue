@@ -5,11 +5,7 @@
     </div>
 
     <div>
-      <span>请杀人：</span>
-    </div>
-
-    <div>
-      <num-picker :maxNum="$store.state.totalPlayer" :values="values" :show-camp="true" :show-to-be-death="true"></num-picker>
+      <num-picker :values="values" :show-camp="true" :show-to-be-death="true"></num-picker>
     </div>
 
     <div class="btnPanel">
@@ -35,7 +31,6 @@
         this.$store.commit('wolfTurn', payload);
 
         this.$router.push('/night');
-//        this.$store.commit('test');
       }
     },
     components: {
@@ -43,7 +38,7 @@
     },
     computed: {
       title () {
-        return `第 ${this.$store.state.current} 天晚上 - 狼人请睁眼`;
+        return `第 ${this.$store.state.current} 天晚上 - 狼人杀人`;
       },
       killBtnText() {
         return this.values.length === 0 ? '空刀' : `刀 ${+this.values} 号`;

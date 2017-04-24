@@ -24,6 +24,9 @@ module.exports = {
       loader: 'style-loader!css-loader'
     }]
   },
+  devServer: {
+    noInfo: true
+  },
   devtool: '#eval-source-map'
 };
 

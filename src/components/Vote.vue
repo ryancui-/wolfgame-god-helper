@@ -4,7 +4,7 @@
       <mt-header :title="title"></mt-header>
     </div>
 
-    <num-picker :max-num="$store.state.totalPlayer" :values="select" :multiple="true">
+    <num-picker :max-num="$store.state.totalCount" :values="select" :multiple="true">
     </num-picker>
 
     <div>

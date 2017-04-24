@@ -1,5 +1,5 @@
 // Import Mint-UI components
-import { Picker, Actionsheet, Header, Button, Checklist } from 'mint-ui';
+import { Picker, Actionsheet, Header, Button, Checklist, Toast } from 'mint-ui';
 Vue.component(Picker.name, Picker);
 Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(Header.name, Header);

@@ -13,7 +13,6 @@
 <script>
   export default {
     props: {
-      maxNum: Number,
       values: {
         type: Array,
         required: true
@@ -26,7 +25,8 @@
     data() {
       return {
         selection: [],  // 状态类
-        prevTouch: 0
+        prevTouch: 0,
+        maxNum: this.$store.state.totalCount
       }
     },
     created() {
@@ -46,11 +46,13 @@
       onTouchStart (index, evt) {
         // 禁止选择
         if (this.disableSelection) {
+          this.prevTouch = null;
           return;
         }
 
         // 当前选择index已死亡
         if (this.$store.state.players[index] && this.$store.state.players[index].death) {
+          this.prevTouch = null;
           return;
         }
 
@@ -65,24 +67,26 @@
 //        console.log(evt);
 
         let index = this.prevTouch;
-        this.selection[index]['item-select'] = !this.selection[index]['item-select'];
 
-        if (!this.multiple) {
-          for (let i=0; i<16; i++) {
-            if (i === index) {
-              continue;
+        if (index !== null) {
+          this.selection[index]['item-select'] = !this.selection[index]['item-select'];
+
+          if (!this.multiple) {
+            for (let i=0; i<16; i++) {
+              if (i === index) {
+                continue;
+              }
+              this.selection[i]['item-select'] = false;
             }
-            this.selection[i]['item-select'] = false;
+          }
+
+          this.values.splice(0);
+          for (let i=0; i<16; i++) {
+            if (this.selection[i]['item-select']) {
+              this.values.push(i + 1);
+            }
           }
         }
-
-        this.values.splice(0);
-        for (let i=0; i<16; i++) {
-          if (this.selection[i]['item-select']) {
-            this.values.push(i + 1);
-          }
-        }
-
       }
     },
     computed: {
